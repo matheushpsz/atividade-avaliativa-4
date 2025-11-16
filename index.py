@@ -23,7 +23,7 @@ def busca_em_largura(grafo, inicio):
                             fila.append(vizinho) 
 
         return visitados
-
+#Função de menor caminho 
 def menor_caminho(grafo, inicio, fim):
     visitados = []
     fila = [
