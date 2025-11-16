@@ -26,25 +26,32 @@ def busca_em_largura(grafo, inicio):
 
 def menor_caminho(grafo, inicio, fim):
     visitados = []
-    # a fila vai ser um dicionario
-    fila = {
+    fila = [
+        {
             'vertice': inicio,
             'caminho': [inicio]
         }
+    ]
+
     while fila:
-        visitado = fila['caminho'].pop(0)
-        if visitado == fim:
-            return fila['caminho']
-        visitados.append(visitado)
-        for vizinho in grafo[visitado]:
-            if vizinho not in fila['caminho']:
-                if vizinho not in visitados:
-                    novo_caminho = list(fila['caminho'])
-                    novo_caminho.append(vizinho)
-                    fila = {
+        item_atual = fila.pop(0) 
+        vertice = item_atual['vertice']
+        caminho = item_atual['caminho']
+
+        if vertice == fim:
+            return caminho
+        
+        if vertice not in visitados:
+            visitados.append(vertice) 
+            for vizinho in grafo[vertice]:
+                if vizinho not in visitados: 
+                    novoCaminho = list(caminho) 
+                    novoCaminho.append(vizinho)
+                    novo_item = {
                         'vertice': vizinho,
-                        'caminho': novo_caminho
+                        'caminho': novoCaminho
                     }
+                    fila.append(novo_item)
     return
 
 #cria um dicionario vazio que será nosso grafo
@@ -96,7 +103,10 @@ def main():
     listaVisitados = busca_em_largura(grafo, 'A')
     print("Lista de visitados: \n", listaVisitados)
     print("=" * 50)
-        
+
+    print("=" * 50)
+    print("Menor caminho de A até E: ", menor_caminho(grafo, 'A', 'E'))
+    
 
 if __name__ == "__main__":
     main()
